@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaks - Phantom Network</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #121212, #1c1c1c);
+            color: #f0f0f0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #232323;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            color: #6a5acd;
+            text-align: center;
+            font-size: 3rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            background: #6a5acd;
+        }
+
+        nav a:hover {
+            background-color: #7f00ff;
+            color: #fff;
+        }
+
+        .hero {
+            height: 50vh;
+            background: url('https://via.placeholder.com/1920x800/1c1c1c/ffffff?text=Leaks+Page') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            background-blend-mode: multiply;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            color: #ffffff;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .content {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            background-color: #2b2b2b;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            color: #7f00ff;
+            margin-bottom: 15px;
+        }
+
+        .leak {
+            display: flex;
+            align-items: center;
+            background-color: #383838;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .leak img {
+            border-radius: 50%;
+            width: 120px; /* Increased profile image size */
+            height: 120px; /* Increased profile image size */
+            margin-right: 15px;
+        }
+
+        .leak-info {
+            flex-grow: 1;
+        }
+
+        .leak h3 {
+            color: #7f00ff;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .leak p {
+            font-size: 1rem;
+            color: #dddddd;
+            margin-bottom: 5px;
+        }
+
+        .proof-button {
+            background-color: #6a5acd;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .proof-button:hover {
+            background-color: #7f00ff;
+        }
+
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+        }
+
+        .popup-content {
+            background: #2b2b2b;
+            border-radius: 10px;
+            padding: 20px;
+            color: #fff;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80%;
+            overflow-y: auto; /* Scrollable */
+        }
+
+        .close-button {
+            background: #ff4d4d;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .close-button:hover {
+            background: #ff0000;
+        }
+
+        .popup-images img {
+            width: 300px; /* Increased image size */
+            height: auto;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        footer {
+            background-color: #232323;
+            color: #999;
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid #333;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #7f00ff;
+            text-decoration: none;
+        }
+
+        /* Media Query for Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .leak h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Phantom Network</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="mission.html">Mission</a>
+        
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <div>
+        
+    </div>
+</div>
+
+<div class="content">
+    <div class="section">
+        <h2>Recent Leaks</h2>
+
+        <div class="leak">
+            <img src="https://via.placeholder.com/120" alt="Person 1">
+            <div class="leak-info">
+                <h3>This is what it'll look like</h3>
+                <p>Address: 1234 Main St, </p>
+                <button class="proof-button" onclick="openPopup('John Doe', '1234 Main St, Hernando', 'Fraudulent Activities', ['https://via.placeholder.com/300', 'https://via.placeholder.com/300'])">View Proof</button>
+            </div>
+
+        </div>
+
+        <!-- More leaks can be added here -->
+    </div>
+</div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <h2 id="popup-title"></h2>
+        <p id="popup-description"></p>
+        <div class="popup-images" id="popup-images"></div>
+        <button class="close-button" onclick="closePopup()">Close</button>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Phantom Network | <a href="#">Privacy Policy</a></p>
+</footer>
+
+<script>
+    function openPopup(title, description, reason, images) {
+        document.getElementById('popup-title').textContent = title;
+        document.getElementById('popup-description').textContent = `Address: ${description}\nReason: ${reason}`;
+        const popupImages = document.getElementById('popup-images');
+        popupImages.innerHTML = ''; // Clear previous images
+
+        images.forEach(image => {
+            const imgElement = document.createElement('img');
+            imgElement.src = image;
+            popupImages.appendChild(imgElement);
+        });
+
+        document.getElementById('popup').style.display = 'flex';
+    }
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
